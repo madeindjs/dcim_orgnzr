@@ -13,6 +13,7 @@
     "dms2dec": "^1.1.0",
     "electron": "^3.0.4",
     "exif": "^0.6.0",
-    "node-geocoder": "^3.22.0"
+    "node-geocoder": "^3.22.0",
+    "vue": "^2.5.17"
   }
 }

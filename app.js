@@ -1,5 +1,6 @@
 const fs = require('fs')
 const NodeGeocoder = require('node-geocoder')
+const Vue = require('vue/dist/vue.common')
 
 const geocoder = NodeGeocoder({
   provider: 'openstreetmap',
@@ -55,6 +56,14 @@ const app = new Vue({
         address: "",
         interventions: [],
       })
+    },
+    addIntervention: function() {
+      this.projects[this.selectedProject].interventions.push({
+        reference: "",
+        start: "",
+        end: "",
+      })
+      this.save()
     }
 
   },

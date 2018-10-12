@@ -58,19 +58,21 @@
             <th>Fin</th>
           </tr>
 
-          <tr v-for="(data, reference) in projects[selectedProject].interventions">
-            <td><input type="text" class="form-control" :value="reference"></td>
+          <tr v-for="(data, index) in projects[selectedProject].interventions">
+            <td><input type="text" class="form-control" :value="data.reference"></td>
             <td><input type="text" class="form-control" :value="data.start"></td>
             <td><input type="text" class="form-control" :value="data.end"></td>
           </tr>
 
         </table>
+        <p class="text-right">
+          <button class="btn btn-primary" @click="addIntervention">Ajouter une intervention</button>
+        </p>
     </div>
 
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script type="text/javascript" src="./app.js"></script>
 </body>
 
