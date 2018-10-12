@@ -1,8 +1,40 @@
 const {
   app,
-  BrowserWindow
+  Menu,
+  BrowserWindow,
+  dialog
 } = require('electron')
 const fs = require('fs')
+
+const organizer = require('./organizer')
+
+
+const template = [{
+    label: 'File',
+    submenu: [{
+        'label': 'Trier un dossier',
+        'title': "Choisissez un dossier à organiser",
+        click() {
+          let paths = dialog.showOpenDialog({
+            properties: ['openDirectory']
+          })
+
+          paths.forEach((path) => organizer.run(path))
+        }
+      },
+      {
+        role: 'quit'
+      },
+    ]
+  },
+
+]
+
+
+const menu = Menu.buildFromTemplate(template)
+Menu.setApplicationMenu(menu)
+
+
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.

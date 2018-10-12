@@ -15,6 +15,7 @@
     "electron": "^3.0.4",
     "electron-open-link-in-browser": "^1.0.2",
     "exif": "^0.6.0",
+    "gps-util": "^1.0.1",
     "node-geocoder": "^3.22.0",
     "vue": "^2.5.17"
   }
