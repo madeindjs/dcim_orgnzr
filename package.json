@@ -4,15 +4,19 @@
   "description": "Organize images according to their GPS tags",
   "main": "index.js",
   "scripts": {
-    "start": "electron .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "electron-forge start",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.1.3",
     "dms2dec": "^1.1.0",
+    "electron-compile": "^6.4.3",
     "electron-open-link-in-browser": "^1.0.2",
+    "electron-squirrel-startup": "^1.0.0",
     "exif": "^0.6.0",
     "gps-util": "^1.0.1",
     "moment": "^2.22.2",
@@ -24,7 +28,42 @@
     "vue": "^2.5.17"
   },
   "devDependencies": {
-    "electron": "^3.0.4",
-    "electron-packager": "^12.2.0"
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "electron-forge": "^5.2.2",
+    "electron-prebuilt-compile": "3.0.2"
+  },
+  "config": {
+    "forge": {
+      "make_targets": {
+        "win32": [
+          "squirrel"
+        ],
+        "darwin": [
+          "zip"
+        ],
+        "linux": [
+          "deb",
+          "rpm"
+        ]
+      },
+      "electronPackagerConfig": {
+        "packageManager": "npm"
+      },
+      "electronWinstallerConfig": {
+        "name": "dcim_orgnzr"
+      },
+      "electronInstallerDebian": {},
+      "electronInstallerRedhat": {},
+      "github_repository": {
+        "owner": "",
+        "name": ""
+      },
+      "windowsStoreConfig": {
+        "packageName": "",
+        "name": "dcim_orgnzr"
+      }
+    }
   }
 }
