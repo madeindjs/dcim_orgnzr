@@ -30,9 +30,12 @@
             <input type="text" class="form-control" v-model="data.address" @change="searchCoordinates(index) && save()">
           </td>
           <td>
-            {{ data.latitude }}°
-            <br>
-            {{ data.longitude }}°
+            <small>
+
+              {{ data.latitude }}°
+              <br>
+              {{ data.longitude }}°
+            </small>
           </td>
           <td>
             <button type="button" class="btn btn-default" @click="selectedProject = index">Voir les interventions</button>
@@ -59,9 +62,9 @@
           </tr>
 
           <tr v-for="(data, index) in projects[selectedProject].interventions">
-            <td><input type="text" class="form-control" :value="data.reference"></td>
-            <td><input type="text" class="form-control" :value="data.start"></td>
-            <td><input type="text" class="form-control" :value="data.end"></td>
+            <td><input type="text" class="form-control" v-model="data.reference" @change="save"></td>
+            <td><input type="text" class="form-control" v-model="data.start" @change="save"></td>
+            <td><input type="text" class="form-control" v-model="data.end" @change="save"></td>
           </tr>
 
         </table>
