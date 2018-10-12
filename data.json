@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Vitacuire",
+    "address" : "14 Rue Jean Jaurès, 69330 Meyzieu",
+    "interventions" : {
+      "I01" : {
+        "start" : "2018-01-01 01:01:01",
+        "end" : "2018-01-01 12:01:01"
+      }
+    }
+  }
+]

@@ -9,6 +9,8 @@
   "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
   "license": "ISC",
   "dependencies": {
+    "dms2dec": "^1.1.0",
     "exif": "^0.6.0",
+    "node-geocoder": "^3.22.0"
   }
 }
