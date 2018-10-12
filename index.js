@@ -5,6 +5,7 @@ const {
   dialog
 } = require('electron')
 const fs = require('fs')
+const notifier = require('node-notifier');
 
 const organizer = require('./organizer')
 
@@ -12,14 +13,21 @@ const organizer = require('./organizer')
 const template = [{
     label: 'File',
     submenu: [{
-        'label': 'Trier un dossier',
-        'title': "Choisissez un dossier à organiser",
+        label: 'Trier un dossier',
+        accelerator: 'CmdOrCtrl+O',
+        title: 'Choisissez un dossier à organiser',
         click() {
           let paths = dialog.showOpenDialog({
             properties: ['openDirectory']
           })
 
           paths.forEach((path) => organizer.run(path))
+
+          notifier.notify({
+            title: 'Organisation des photos',
+            message: "Les photos on été organisées selon les projets / interventions renseignées"
+          });
+
         }
       },
       {
@@ -61,7 +69,7 @@ function createWindow() {
   win.loadFile('index.html')
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  // win.webContents.openDevTools()
 
   // Emitted when the window is closed.
   win.on('closed', () => {
