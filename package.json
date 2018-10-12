@@ -1,5 +1,5 @@
 {
-  "name": "dcim_orgnzr",
+  "name": "dcim-orgnzr",
   "version": "1.0.0",
   "description": "Organize images according to their GPS tags",
   "main": "./src/index.js",
