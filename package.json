@@ -4,12 +4,14 @@
   "description": "Organize images according to their GPS tags",
   "main": "index.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
   "license": "ISC",
   "dependencies": {
     "dms2dec": "^1.1.0",
+    "electron": "^3.0.4",
     "exif": "^0.6.0",
     "node-geocoder": "^3.22.0"
   }
