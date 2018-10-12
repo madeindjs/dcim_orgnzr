@@ -48,7 +48,15 @@ const app = new Vue({
         app.save()
       });
 
+    },
+    addProject: function() {
+      this.projects.push({
+        name: "",
+        address: "",
+        interventions: [],
+      })
     }
+
   },
   data: {
     projects: {},
