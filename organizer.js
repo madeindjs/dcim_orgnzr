@@ -5,6 +5,7 @@ const path = require("path")
 const gpsUtil = require('gps-util')
 const mv = require('mv');
 const sanitize = require("sanitize-filename")
+const moment = require('moment')
 
 const NEAR_AREA = 50
 
@@ -30,6 +31,30 @@ function findProject(latitude, longitude) {
     })
 }
 
+
+function move(oldPath, newPath) {
+  mv(oldPath, newPath, {
+    mkdirp: true
+  }, error => {
+    if (error) {
+      return console.error(error);
+    }
+  })
+}
+
+
+// if not found move it into "./not_found" folder
+function moveToNotFound(imagePath, reason) {
+  let newPath = path.join(
+    path.dirname(imagePath),
+    'errors',
+    reason,
+    path.basename(imagePath)
+  )
+
+  move(imagePath, newPath)
+}
+
 /**
  * [organizeImage description]
  * @param  {String} imagePath
@@ -47,32 +72,40 @@ function organizeImage(imagePath, exifData) {
   let project = findProject(latitude, longitude)
 
   if (project === undefined) {
-
-
-    let newPath = path.join(
-      path.dirname(imagePath),
-      'not_found',
-      path.basename(imagePath)
-    )
-
+    moveToNotFound(imagePath, 'no_project')
 
     return false
   }
 
-  let newPath = path.join(
-    path.dirname(imagePath),
-    sanitize(project.name),
-    path.basename(imagePath)
-  )
+  let shootTime = moment(exifData.exif.DateTimeOriginal, "YYYY:MM:DD HH:mm:ss")
 
-  mv(imagePath, newPath, {
-    mkdirp: true
-  }, error => {
-    if (error) {
-      return console.error(error);
-    }
+  let intervention = project.interventions.find(intervention => {
+    let start = moment(intervention.start)
+    let end = moment(intervention.end)
+
+    return shootTime > start && shootTime < end
   })
 
+  let newPath = null
+
+  if (intervention !== undefined && intervention.reference) {
+    newPath = path.join(
+      path.dirname(imagePath),
+      sanitize(project.name),
+      sanitize(intervention.reference),
+      path.basename(imagePath)
+    )
+
+  } else {
+    newPath = path.join(
+      path.dirname(imagePath),
+      sanitize(project.name),
+      'not_found',
+      path.basename(imagePath)
+    )
+  }
+
+  move(imagePath, newPath)
   return true
 }
 
@@ -96,10 +129,12 @@ module.exports.run = function organizeImages(imagesPath) {
       }, function(exifError, exifData) {
         // handle error
         if (exifError) {
+          moveToNotFound(imagePath, 'no_data')
           return console.error(`${imagePath} : ${exifError}`)
         }
         // check GPS data
         if (exifData.gps === undefined || Object.keys(exifData.gps).length === 0) {
+          moveToNotFound(imagePath, 'no_gps')
           return console.error(`${imagePath} : picture have no GPS data`)
         }
 

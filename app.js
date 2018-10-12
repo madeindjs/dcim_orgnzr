@@ -2,6 +2,7 @@ const fs = require('fs')
 const NodeGeocoder = require('node-geocoder')
 const Vue = require('vue/dist/vue.common')
 
+
 const geocoder = NodeGeocoder({
   provider: 'openstreetmap',
 })

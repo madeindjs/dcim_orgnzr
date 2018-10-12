@@ -16,6 +16,7 @@
     "electron-open-link-in-browser": "^1.0.2",
     "exif": "^0.6.0",
     "gps-util": "^1.0.1",
+    "moment": "^2.22.2",
     "mv": "^2.1.1",
     "node-geocoder": "^3.22.0",
     "node-mv": "^0.1.3",

@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <title>DCIM Orgnzr</title>
   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./node_modules/flatpickr/dist/flatpickr.min.css">
 </head>
 
 <body class="container-fluid">
@@ -57,9 +58,10 @@
 
           <tr v-for="(data, index) in projects[selectedProject].interventions">
             <td><input type="text" class="form-control" v-model="data.reference" @change="save"></td>
-            <td><input type="text" class="form-control" v-model="data.start" @change="save"></td>
-            <td><input type="text" class="form-control" v-model="data.end" @change="save"></td>
+            <td><input type="datetime-local" class="form-control" v-model="data.start" @change="save"></td>
+            <td><input type="datetime-local" class="form-control" v-model="data.end" @change="save"></td>
           </tr>
+
 
         </table>
         <p class="text-right">
