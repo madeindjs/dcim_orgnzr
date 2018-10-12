@@ -64,6 +64,9 @@ const app = new Vue({
         end: "",
       })
       this.save()
+    },
+    openMap: function(latitude, longitude) {
+      require("electron").shell.openExternal(`http://www.google.com/maps/place/${latitude},${longitude}`)
     }
 
   },

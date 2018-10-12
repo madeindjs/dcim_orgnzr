@@ -11,7 +11,7 @@
   <div id="app" class="row">
 
 
-    <div class="col-12 mb-5">
+    <div class="col-12 col-xl-6 mb-5">
 
       <h1 class="h3">Projets</h1>
 
@@ -19,7 +19,6 @@
         <tr>
           <th>Nom</th>
           <th>Adresse</th>
-          <th>GPS</th>
           <th></th>
         </tr>
         <tr v-for="(data, index) in projects">
@@ -29,16 +28,11 @@
           <td>
             <input type="text" class="form-control" v-model="data.address" @change="searchCoordinates(index) && save()">
           </td>
-          <td>
-            <small>
-
-              {{ data.latitude }}°
-              <br>
-              {{ data.longitude }}°
-            </small>
-          </td>
-          <td>
-            <button type="button" class="btn btn-default" @click="selectedProject = index">Voir les interventions</button>
+          <td class="text-right">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button class="btn btn-default btn-sm" @click="selectedProject = index">Interventions</button>
+              <button class="btn btn-default btn-sm" v-if="data.latitude !== undefined && data.longitude !== undefined" @click="openMap(data.latitude, data.longitude)" :title="`${data.latitude},${data.longitude}`">Map</button>
+            </div>
           </td>
         </tr>
       </table>
@@ -51,7 +45,7 @@
 
     <div class="col" v-if="selectedProject !== null">
 
-      <h1 class="h4">Les interventions</h2>
+      <h1 class="h4">Les interventions pour {{ projects[selectedProject].name }}</h2>
 
         <table class="table">
 
