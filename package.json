@@ -1,0 +1,14 @@
+{
+  "name": "dcim_orgnzr",
+  "version": "1.0.0",
+  "description": "Organize images according to their GPS tags",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
+  "license": "ISC",
+  "dependencies": {
+    "exif": "^0.6.0",
+  }
+}
