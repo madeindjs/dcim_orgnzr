@@ -2,6 +2,7 @@ const {
   app,
   BrowserWindow
 } = require('electron')
+const fs = require('fs')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -28,6 +29,13 @@ function createWindow() {
     win = null
   })
 }
+
+try {
+  fs.statSync('data.json').isFile()
+} catch (e) {
+  fs.writeFileSync('data.json', '[]')
+}
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
