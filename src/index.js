@@ -1,9 +1,4 @@
-const {
-  app,
-  Menu,
-  BrowserWindow,
-  dialog
-} = require('electron')
+const {app, Menu, BrowserWindow, dialog} = require('electron')
 const fs = require('fs')
 const notifier = require('node-notifier');
 
@@ -17,34 +12,34 @@ const template = [{
         accelerator: 'CmdOrCtrl+O',
         title: 'Choisissez un dossier à organiser',
         click() {
-          let paths = dialog.showOpenDialog({
-            properties: ['openDirectory']
-          })
+            let paths = dialog.showOpenDialog({
+                properties: ['openDirectory']
+            })
 
-          paths.forEach((path) => organizer.run(path))
+            paths.forEach((path) => organizer.run(path))
 
-          notifier.notify({
-            title: 'Organisation des photos',
-            message: "Les photos on été organisées selon les projets / interventions renseignées"
-          });
+            notifier.notify({
+                title: 'Organisation des photos',
+                message: "Les photos on été organisées selon les projets / interventions renseignées"
+            });
 
         }
-      },
-      {
-        role: 'quit'
-      },
+    },
+        {
+            role: 'quit'
+        },
     ]
-  },
-  {
-    label: 'View',
-    submenu: [{
-        role: 'reload'
-      },
-      {
-        role: 'togglefullscreen'
-      }
-    ]
-  },
+},
+    {
+        label: 'View',
+        submenu: [{
+            role: 'reload'
+        },
+            {
+                role: 'togglefullscreen'
+            }
+        ]
+    },
 
 ]
 
@@ -59,31 +54,31 @@ Menu.setApplicationMenu(menu)
 let win
 
 function createWindow() {
-  // Create the browser window.
-  win = new BrowserWindow({
-    width: 800,
-    height: 600
-  })
+    // Create the browser window.
+    win = new BrowserWindow({
+        width: 800,
+        height: 600
+    })
 
-  // and load the index.html of the app.
-  win.loadFile('static/index.html')
+    // and load the index.html of the app.
+    win.loadFile('static/index.html')
 
-  // Open the DevTools.
-  // win.webContents.openDevTools()
+    // Open the DevTools.
+    // win.webContents.openDevTools()
 
-  // Emitted when the window is closed.
-  win.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    win = null
-  })
+    // Emitted when the window is closed.
+    win.on('closed', () => {
+        // Dereference the window object, usually you would store windows
+        // in an array if your app supports multi windows, this is the time
+        // when you should delete the corresponding element.
+        win = null
+    })
 }
 
 try {
-  fs.statSync('data.json').isFile()
-} catch (e) {
-  fs.writeFileSync('data.json', '[]')
+    fs.statSync('data.json').isFile()
+} catch ( e ) {
+    fs.writeFileSync('data.json', '[]')
 }
 
 
@@ -94,19 +89,19 @@ app.on('ready', createWindow)
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+    // On macOS it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
 })
 
 app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (win === null) {
-    createWindow()
-  }
+    // On macOS it's common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (win === null) {
+        createWindow()
+    }
 })
 
 // In this file you can include the rest of your app's specific main process
