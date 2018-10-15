@@ -9,7 +9,16 @@ const moment = require('moment')
 
 const NEAR_AREA = 50
 
+// ensure database is set
+try {
+    fs.statSync('data.json').isFile()
+} catch ( e ) {
+    fs.writeFileSync('data.json', '[]')
+}
+
+
 const projectsData = fs.readFileSync('data.json')
+
 
 if (!projectsData) {
     throw ('Could not open data.json')

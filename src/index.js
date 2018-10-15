@@ -75,13 +75,6 @@ function createWindow() {
     })
 }
 
-try {
-    fs.statSync('data.json').isFile()
-} catch ( e ) {
-    fs.writeFileSync('data.json', '[]')
-}
-
-
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
