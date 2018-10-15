@@ -22,7 +22,7 @@ const app = new Vue({
     methods: {
         // save vue app data as JSON
         save: function(value) {
-            fs.writeFile('data.json', JSON.stringify(this.projects), (err) => {
+            fs.writeFile('data.json', JSON.stringify(this.projects, null, 2), (err) => {
                 if (err) {
                     return console.error(`cannot find database`)
                 }
