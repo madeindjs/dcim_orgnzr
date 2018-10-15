@@ -13,9 +13,7 @@
 
     <div class="col-12 col-xl-6 mb-5">
 
-      <h1 class="h3">Projets</h1>
-
-      <table class="table">
+        <table class="table table-sm">
         <tr>
           <th>Nom</th>
           <th>Adresse</th>
@@ -23,15 +21,17 @@
         </tr>
         <tr v-for="(data, index) in projects">
           <td>
-            <input type="text" class="form-control" v-model="data.name" @change="save">
+            <input type="text" class="form-control border-0 " v-model="data.name" @change="save">
           </td>
           <td>
-            <input type="text" class="form-control" v-model="data.address" @change="searchCoordinates(index) && save()">
+            <input type="text" class="form-control border-0 " v-model="data.address" @change="searchCoordinates(index) && save()">
           </td>
           <td class="text-right">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button class="btn btn-default btn-sm" v-if="data.latitude !== undefined && data.longitude !== undefined" @click="openMap(data.latitude, data.longitude)" :title="`${data.latitude},${data.longitude}`">Map</button>
-              <button class="btn btn-default btn-sm" @click="selectedProject = index">Interventions</button>
+              <button class="btn btn-light btn-sm" v-if="data.latitude !== undefined && data.longitude !== undefined" @click="openMap(data.latitude, data.longitude)" :title="`${data.latitude},${data.longitude}`">Map</button>
+              <button class="btn btn-default btn-sm" @click="selectedProject = index">Interventions
+                <span class="badge badge-light">{{ data.interventions.length }}</span>
+              </button>
             </div>
           </td>
         </tr>
@@ -45,9 +45,9 @@
 
     <div class="col" v-if="selectedProject !== null">
 
-      <h1 class="h4">Les interventions pour {{ projects[selectedProject].name }}</h2>
+      <h1 class="h4">Les interventions pour {{ projects[selectedProject].name }}</h1>
 
-        <table class="table">
+        <table class="table table-sm">
 
           <tr>
             <th>Numéro d'intervention</th>
@@ -56,9 +56,9 @@
           </tr>
 
           <tr v-for="(data, index) in projects[selectedProject].interventions">
-            <td><input type="text" class="form-control" v-model="data.reference" @change="save"></td>
-            <td><input type="datetime-local" class="form-control" v-model="data.start" @change="save"></td>
-            <td><input type="datetime-local" class="form-control" v-model="data.end" @change="save"></td>
+            <td><input type="text" class="form-control border-0 " v-model="data.reference" @change="save"></td>
+            <td><input type="datetime-local" class="form-control border-0 " v-model="data.start" @change="save"></td>
+            <td><input type="datetime-local" class="form-control border-0 " v-model="data.end" @change="save"></td>
           </tr>
 
 
