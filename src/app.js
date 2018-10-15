@@ -35,10 +35,12 @@ const app = new Vue({
             geocoder.geocode(project.address, function(geocodeErr, res) {
 
                 if (geocodeErr) {
+                    alert(`Une erreur est survnue dans la recherche des coordonées: ${geocodeErr}`)
                     return console.error(geocodeErr)
                 }
 
                 if (res.length === 0) {
+                    alert(`Nous n'avons pas retrouvé les coordonées de: ${project.address}`)
                     return console.error(`Could not find data for ${project.address}`)
                 }
 
@@ -48,6 +50,7 @@ const app = new Vue({
                 app.projects[index]['latitude'] = firstRes.latitude
                 app.projects[index]['longitude'] = firstRes.longitude
                 app.save()
+                app.$forceUpdate();
             });
 
         },

@@ -7,7 +7,7 @@ const mv = require('mv');
 const sanitize = require("sanitize-filename")
 const moment = require('moment')
 
-const NEAR_AREA = 50
+const NEAR_AREA = 300
 
 // ensure database is set
 try {

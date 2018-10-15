@@ -30,8 +30,8 @@
           </td>
           <td class="text-right">
             <div class="btn-group" role="group" aria-label="Basic example">
-              <button class="btn btn-default btn-sm" @click="selectedProject = index">Interventions</button>
               <button class="btn btn-default btn-sm" v-if="data.latitude !== undefined && data.longitude !== undefined" @click="openMap(data.latitude, data.longitude)" :title="`${data.latitude},${data.longitude}`">Map</button>
+              <button class="btn btn-default btn-sm" @click="selectedProject = index">Interventions</button>
             </div>
           </td>
         </tr>
