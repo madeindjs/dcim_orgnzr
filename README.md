@@ -2,7 +2,7 @@
 
 **Work In Progress**
 
-Organize your picture according to a JSON configuration (see [configuration specification](./src/configuration.v1.schema.json))
+Organize your picture according to a JSON configuration.
 
 ## Usage
 

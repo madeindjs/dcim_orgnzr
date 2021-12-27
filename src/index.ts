@@ -1,6 +1,6 @@
 import "reflect-metadata";
+import { ComputeMoveService } from "./compute-move";
 import { container } from "./container";
-import { ComputeMoveService } from "./organizer";
 import { TYPES } from "./types";
 
 const directoryPath = process.argv[2];

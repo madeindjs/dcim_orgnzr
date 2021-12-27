@@ -5,11 +5,11 @@ import { isFileExists } from "./utils";
 
 const CONFIGURATION_FILE = "dcim-orgnzr.json";
 
-enum ConfigurationRuleProperty {
+export enum ConfigurationRuleProperty {
   ExifCreateDate = "exif.CreateDate",
 }
 
-class ConfigurationRule {
+export class ConfigurationRule {
   @IsString()
   destination!: string;
   @IsEnum(ConfigurationRuleProperty)

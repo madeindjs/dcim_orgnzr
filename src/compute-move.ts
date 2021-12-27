@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { Configuration, ConfigurationService } from "./configuration";
+import { ExifParser } from "./exif-parser";
 import { TYPES } from "./types";
-import { getExifData } from "./utils";
 
 // @ts-check
 const walk = require("walkdir");
@@ -14,7 +14,10 @@ interface Move {
 
 @injectable()
 export class ComputeMoveService {
-  constructor(@inject(TYPES.ConfigurationService) private configurationService: ConfigurationService) {}
+  constructor(
+    @inject(TYPES.ConfigurationService) private configurationService: ConfigurationService,
+    @inject(TYPES.ExifParser) private readonly exifParser: ExifParser
+  ) {}
 
   async getMovesForDirectory(directoryPath: string, configuration?: Configuration): Promise<Move[]> {
     if (configuration === undefined) {
@@ -46,7 +49,7 @@ export class ComputeMoveService {
     const haveExifRule = configuration.rules.some(({ property }) => property.startsWith("exif"));
 
     if (haveExifRule) {
-      const exifData: any = await getExifData(file);
+      const exifData: any = await this.exifParser.getExifData(file);
       const createdDateRule = configuration.rules.find(({ property }) => property === "exif.CreateDate");
 
       if (createdDateRule) {
