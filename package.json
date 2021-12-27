@@ -5,6 +5,7 @@
   "main": "./src/index.js",
   "scripts": {
     "start": "electron-forge start",
+    "dev": "ts-node src/index.ts $PWD/sample",
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "electron-forge package",
     "make": "electron-forge make"
@@ -12,6 +13,7 @@
   "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
   "license": "ISC",
   "dependencies": {
+    "class-validator": "^0.13.2",
     "dms2dec": "^1.1.0",
     "exif": "^0.6.0",
     "gps-util": "^1.0.1",
@@ -21,10 +23,16 @@
     "node-geocoder": "^3.22.0",
     "node-mv": "^0.1.3",
     "node-notifier": "^5.2.1",
+    "reflect-metadata": "^0.1.13",
     "sanitize-filename": "^1.6.1",
     "walkdir": "^0.4.1"
   },
   "devDependencies": {
+    "@types/exif": "^0.6.3",
+    "@types/node": "^17.0.5",
+    "chai": "^4.3.4",
+    "inversify": "^6.0.1",
+    "ts-node": "^10.4.0",
     "typescript": "^4.5.4"
   }
 }
