@@ -2,12 +2,12 @@ import { expect, use } from "chai";
 import * as chaiAsPromise from "chai-as-promised";
 import { Container } from "inversify";
 import "reflect-metadata";
+import { fixturesImages } from "../fixtures.spec";
+import { containerRulesModule } from "../rules/container-rule";
+import { TYPES } from "../types";
 import { ComputeMoveService } from "./compute-move";
-import { Configuration, ConfigurationService } from "./configuration";
 import { ExifParser } from "./exif-parser";
-import { fixturesImages } from "./fixtures.spec";
-import { containerRulesModule } from "./rules/container-rule";
-import { TYPES } from "./types";
+import { RulesServices } from "./rules.service";
 
 use(chaiAsPromise);
 
@@ -16,8 +16,8 @@ describe(ComputeMoveService.name, () => {
 
   beforeEach(() => {
     const container = new Container();
-    container.bind(TYPES.ConfigurationService).to(ConfigurationService);
     container.bind(TYPES.ComputeMoveService).to(ComputeMoveService);
+    container.bind(TYPES.RulesServices).to(RulesServices);
     container.load(containerRulesModule);
     container.bind(TYPES.ExifParser).toConstantValue({
       getExifData: async () => ({ exif: { CreateDate: "2018:08:05 12:24:42" } }),
@@ -27,12 +27,7 @@ describe(ComputeMoveService.name, () => {
 
   describe("getMoveForFile", () => {
     it("should move with all date of exif", async () => {
-      const configuration: Configuration = {
-        version: 1,
-        destination: "<exif.CreateDate:MM>",
-      };
-
-      const result = await computeMoveService.getMoveForFile(fixturesImages.me, configuration);
+      const result = await computeMoveService.getMoveForFile(fixturesImages.me, "<exif.CreateDate:MM>");
 
       expect(result).deep.eq({
         from: fixturesImages.me,

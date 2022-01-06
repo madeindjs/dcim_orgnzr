@@ -1,21 +1,19 @@
-import * as dayjs from "dayjs";
-import * as customParseFormat from "dayjs/plugin/customParseFormat";
+import dayjs = require("dayjs");
 import { inject, injectable } from "inversify";
-import { ExifParser } from "../exif-parser";
+import { ExifParser } from "../services/exif-parser";
 import { TYPES } from "../types";
 import { AbstractRule } from "./abstract.rule";
 
-dayjs.extend(customParseFormat);
-
 @injectable()
-export class ExifCreatedDateRule implements AbstractRule {
-  id: string = "exif.CreateDate";
-  private readonly regex = /<exif\.CreateDate:(.*?)>/g;
+export abstract class AbstractDateRule extends AbstractRule {
+  protected abstract getProperty(exifDate: any): string;
 
-  constructor(@inject(TYPES.ExifParser) private readonly exifParser: ExifParser) {}
+  constructor(@inject(TYPES.ExifParser) protected readonly exifParser: ExifParser) {
+    super();
+  }
 
   async run(from: string, to: string): Promise<string | undefined> {
-    const matches = Array.from(to.matchAll(this.regex));
+    const matches = Array.from(to.matchAll(this.regex) ?? []);
 
     if (matches.length === 0) {
       return undefined;

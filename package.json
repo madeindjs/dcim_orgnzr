@@ -4,13 +4,16 @@
   "description": "Organize images according to their GPS tags",
   "main": "./src/index.js",
   "scripts": {
+    "build": "tsc",
+    "start": "node dist/index",
+    "start:dev": "ts-node src/index",
     "dev": "ts-node src/index.ts $PWD/sample",
+    "doc": "ts-node src/doc.ts",
     "test": "ts-mocha src/**/*.spec.ts"
   },
   "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
   "license": "ISC",
   "dependencies": {
-    "class-validator": "^0.13.2",
     "dayjs": "^1.10.7",
     "exif": "^0.6.0",
     "gps-util": "^1.0.1",
