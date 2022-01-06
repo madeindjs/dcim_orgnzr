@@ -1,11 +1,12 @@
 import { expect, use } from "chai";
 import * as chaiAsPromise from "chai-as-promised";
 import { Container } from "inversify";
-import { join } from "path";
 import "reflect-metadata";
 import { ComputeMoveService } from "./compute-move";
-import { Configuration, ConfigurationRuleProperty, ConfigurationService } from "./configuration";
+import { Configuration, ConfigurationService } from "./configuration";
 import { ExifParser } from "./exif-parser";
+import { fixturesImages } from "./fixtures.spec";
+import { containerRulesModule } from "./rules/container-rule";
 import { TYPES } from "./types";
 
 use(chaiAsPromise);
@@ -17,9 +18,10 @@ describe(ComputeMoveService.name, () => {
     const container = new Container();
     container.bind(TYPES.ConfigurationService).to(ConfigurationService);
     container.bind(TYPES.ComputeMoveService).to(ComputeMoveService);
-    container
-      .bind(TYPES.ExifParser)
-      .toConstantValue({ getExifData: async () => ({ exif: { CreateDate: "2018:08:05 12:24:42" } }) } as ExifParser);
+    container.load(containerRulesModule);
+    container.bind(TYPES.ExifParser).toConstantValue({
+      getExifData: async () => ({ exif: { CreateDate: "2018:08:05 12:24:42" } }),
+    } as unknown as ExifParser);
     computeMoveService = container.get(TYPES.ComputeMoveService);
   });
 
@@ -27,14 +29,14 @@ describe(ComputeMoveService.name, () => {
     it("should move with all date of exif", async () => {
       const configuration: Configuration = {
         version: 1,
-        rules: [{ destination: "$1-test", property: ConfigurationRuleProperty.ExifCreateDate }],
+        destination: "<exif.CreateDate:MM>",
       };
 
-      const result = await computeMoveService.getMoveForFile(join(__dirname, "test.jpg"), configuration);
+      const result = await computeMoveService.getMoveForFile(fixturesImages.me, configuration);
 
       expect(result).deep.eq({
-        from: join(__dirname, "test.jpg"),
-        to: join(__dirname, "2018:08:05 12:24:42-test", "test.jpg"),
+        from: fixturesImages.me,
+        to: "08",
       });
     });
   });

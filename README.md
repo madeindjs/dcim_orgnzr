@@ -9,3 +9,5 @@ Organize your picture according to a JSON configuration.
 ```sh
 node src/index.js "$PWD/sample"
 ```
+
+## Tags

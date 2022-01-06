@@ -1,29 +1,17 @@
-import { ArrayMinSize, IsArray, IsEnum, IsNumber, IsPositive, IsString, validate } from "class-validator";
+import { IsNumber, IsPositive, IsString, validate } from "class-validator";
 import { injectable } from "inversify";
 import { join } from "path";
 import { isFileExists } from "./utils";
 
 const CONFIGURATION_FILE = "dcim-orgnzr.json";
 
-export enum ConfigurationRuleProperty {
-  ExifCreateDate = "exif.CreateDate",
-}
-
-export class ConfigurationRule {
-  @IsString()
-  destination!: string;
-  @IsEnum(ConfigurationRuleProperty)
-  property!: ConfigurationRuleProperty;
-}
-
 export class Configuration {
   @IsNumber()
   @IsPositive()
   version!: number;
 
-  @IsArray()
-  @ArrayMinSize(1)
-  rules!: ConfigurationRule[];
+  @IsString()
+  destination!: string;
 }
 
 @injectable()

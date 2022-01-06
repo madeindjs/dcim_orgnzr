@@ -1,6 +1,8 @@
 import { inject, injectable } from "inversify";
 import { Configuration, ConfigurationService } from "./configuration";
 import { ExifParser } from "./exif-parser";
+import { AbstractRule } from "./rules/abstract.rule";
+import { ExifCreatedDateRule } from "./rules/exif-created-date.rule";
 import { TYPES } from "./types";
 
 // @ts-check
@@ -14,10 +16,15 @@ interface Move {
 
 @injectable()
 export class ComputeMoveService {
+  private readonly rules: AbstractRule[];
+
   constructor(
     @inject(TYPES.ConfigurationService) private configurationService: ConfigurationService,
-    @inject(TYPES.ExifParser) private readonly exifParser: ExifParser
-  ) {}
+    @inject(TYPES.ExifParser) private readonly exifParser: ExifParser,
+    @inject(TYPES.ExifCreatedDateRule) exifCreatedDateRule: ExifCreatedDateRule
+  ) {
+    this.rules = [exifCreatedDateRule];
+  }
 
   async getMovesForDirectory(directoryPath: string, configuration?: Configuration): Promise<Move[]> {
     if (configuration === undefined) {
@@ -39,27 +46,28 @@ export class ComputeMoveService {
     return moves;
   }
 
-  async getMoveForFile(file: string, configuration: Configuration) {
-    if (![".jpg"].includes(path.extname(file))) {
+  async getMoveForFile(from: string, configuration: Configuration): Promise<Move | undefined> {
+    if (![".jpg"].includes(path.extname(from))) {
       return;
     }
 
-    const directoryPath = path.dirname(file);
+    let to = from;
 
-    const haveExifRule = configuration.rules.some(({ property }) => property.startsWith("exif"));
+    const directoryPath = path.dirname(from);
 
-    if (haveExifRule) {
-      const exifData: any = await this.exifParser.getExifData(file);
-      const createdDateRule = configuration.rules.find(({ property }) => property === "exif.CreateDate");
+    for (const rule of this.rules) {
+      const result = await rule.run(to, configuration.destination);
 
-      if (createdDateRule) {
-        const createdAt = exifData.exif.CreateDate;
-
-        return {
-          from: file,
-          to: path.join(directoryPath, createdDateRule.destination.replace("$1", createdAt), path.basename(file)),
-        };
+      if (result) {
+        to = result;
       }
+    }
+
+    if (to !== from) {
+      return {
+        from,
+        to,
+      };
     }
   }
 }

@@ -4,16 +4,14 @@
   "description": "Organize images according to their GPS tags",
   "main": "./src/index.js",
   "scripts": {
-    "start": "electron-forge start",
     "dev": "ts-node src/index.ts $PWD/sample",
-    "test": "ts-mocha src/**/*.spec.ts",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "test": "ts-mocha src/**/*.spec.ts"
   },
   "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
   "license": "ISC",
   "dependencies": {
     "class-validator": "^0.13.2",
+    "dayjs": "^1.10.7",
     "exif": "^0.6.0",
     "gps-util": "^1.0.1",
     "mv": "^2.1.1",
@@ -27,6 +25,7 @@
     "@types/chai": "^4.3.0",
     "@types/chai-as-promised": "^7.1.4",
     "@types/exif": "^0.6.3",
+    "@types/mocha": "^9.0.0",
     "@types/node": "^17.0.5",
     "chai": "^4.3.4",
     "chai-as-promised": "^7.1.1",
