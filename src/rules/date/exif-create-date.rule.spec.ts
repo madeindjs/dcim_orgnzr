@@ -1,12 +1,12 @@
 import { expect } from "chai";
 import * as path from "path";
-import { container } from "../container";
-import { fixturesImages } from "../fixtures.spec";
-import { TYPES } from "../types";
-import { ExifDateTimeOriginalRule } from "./exif-date-time-original-date.rule";
+import { container } from "../../container";
+import { fixturesImages } from "../../fixtures.spec";
+import { TYPES } from "../../types";
+import { ExifCreateDateRule } from "./exif-create-date.rule";
 
-describe(ExifDateTimeOriginalRule.name, () => {
-  let service: ExifDateTimeOriginalRule;
+describe(ExifCreateDateRule.name, () => {
+  let service: ExifCreateDateRule;
 
   before(() => {
     service = container.get(TYPES.ExifCreatedDateRule);

@@ -1,14 +1,14 @@
 import * as dayjs from "dayjs";
 import * as customParseFormat from "dayjs/plugin/customParseFormat";
 import { injectable } from "inversify";
+import { RuleExample } from "../abstract.rule";
 import { AbstractDateRule } from "./abstract-date.rule";
-import { RuleExample } from "./abstract.rule";
 
 dayjs.extend(customParseFormat);
 
 @injectable()
-export class ExifDateTimeOriginalRule extends AbstractDateRule {
-  public id: string = "exif.DateTimeOriginal";
+export class ExifCreateDateRule extends AbstractDateRule {
+  public id: string = "exif.CreateDate";
   public description: string = "Use EXIF created date and format date according to given format";
   public examples: RuleExample[] = [
     {
@@ -20,9 +20,9 @@ export class ExifDateTimeOriginalRule extends AbstractDateRule {
       result: "2021/02/03/test.jpg",
     },
   ];
-  protected readonly regex = /<exif\.DateTimeOriginal:(.*?)>/g;
+  protected readonly regex = /<exif\.CreateDate:(.*?)>/g;
 
   protected getProperty(exifData: any): string {
-    return exifData.exif.DateTimeOriginal;
+    return exifData.exif.CreateDate;
   }
 }

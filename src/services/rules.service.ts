@@ -1,8 +1,8 @@
 import { inject, injectable } from "inversify";
 import { AbstractRule } from "../rules/abstract.rule";
-import { ExifCreateDateRule } from "../rules/exif-create-date.rule";
-import { ExifDateTimeOriginalRule } from "../rules/exif-date-time-original-date.rule";
-import { ExifExposureTimeRule } from "../rules/exif-exposure-time.rule";
+import { ExifCreateDateRule } from "../rules/date/exif-create-date.rule";
+import { ExifDateTimeOriginalRule } from "../rules/date/exif-date-time-original-date.rule";
+import { ExifExposureTimeRule } from "../rules/text/exif-exposure-time.rule";
 import { TYPES } from "../types";
 
 @injectable()

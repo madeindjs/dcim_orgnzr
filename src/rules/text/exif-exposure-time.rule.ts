@@ -1,8 +1,8 @@
 import * as dayjs from "dayjs";
 import * as customParseFormat from "dayjs/plugin/customParseFormat";
 import { injectable } from "inversify";
+import { RuleExample } from "../abstract.rule";
 import { AbstractTextRule } from "./abstract-text.rule";
-import { RuleExample } from "./abstract.rule";
 
 dayjs.extend(customParseFormat);
 

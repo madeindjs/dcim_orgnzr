@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import * as path from "path";
-import { container } from "../container";
-import { fixturesImages } from "../fixtures.spec";
-import { TYPES } from "../types";
+import { container } from "../../container";
+import { fixturesImages } from "../../fixtures.spec";
+import { TYPES } from "../../types";
 import { ExifExposureTimeRule } from "./exif-exposure-time.rule";
 
 describe(ExifExposureTimeRule.name, () => {
