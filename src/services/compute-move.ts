@@ -1,3 +1,4 @@
+import { rename } from "fs/promises";
 import { inject, injectable } from "inversify";
 import { TYPES } from "../types";
 import { RulesServices } from "./rules.service";
@@ -11,24 +12,31 @@ interface Move {
   to: string;
 }
 
+interface Options {
+  dryRun?: boolean;
+}
+
 @injectable()
 export class ComputeMoveService {
   constructor(@inject(TYPES.RulesServices) private readonly rulesService: RulesServices) {}
 
-  async getMovesForDirectory(directoryPath: string, pattern: string): Promise<Move[]> {
-    const moves: Move[] = [];
-
+  async *getMovesForDirectory(
+    directoryPath: string,
+    pattern: string,
+    options: Options = {}
+  ): AsyncGenerator<Move, void, Move> {
     let result = await walk.async(directoryPath, { return_object: true });
 
     for (const filepath of Object.keys(result)) {
       const move = await this.getMoveForFile(filepath, pattern);
 
       if (move !== undefined) {
-        moves.push(move);
+        if (!options.dryRun) {
+          await rename(move.from, move.to);
+        }
+        yield move;
       }
     }
-
-    return moves;
   }
 
   async getMoveForFile(from: string, pattern: string): Promise<Move | undefined> {

@@ -2,7 +2,7 @@ import { ExifImage } from "exif";
 import { injectable } from "inversify";
 
 @injectable()
-export class ExifParser {
+export class ExifParserService {
   private readonly cache = new Map<string, object>();
 
   getExifData(path: string, force = false) {

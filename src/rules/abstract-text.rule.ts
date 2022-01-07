@@ -5,7 +5,7 @@ import { TYPES } from "../types";
 import { AbstractRule } from "./abstract.rule";
 
 @injectable()
-export abstract class AbstractDateRule extends AbstractRule {
+export abstract class AbstractTextRule extends AbstractRule {
   protected abstract getProperty(exifData: any): string;
 
   constructor(@inject(TYPES.ExifParserService) protected readonly exifParser: ExifParserService) {
@@ -21,16 +21,14 @@ export abstract class AbstractDateRule extends AbstractRule {
 
     const exifData: any = await this.exifParser.getExifData(from);
 
-    const exifDate = this.getProperty(exifData);
+    const exifNumber = this.getProperty(exifData);
 
-    if (exifDate === undefined) {
+    if (exifNumber === undefined) {
       return;
     }
 
-    const date = dayjs(exifDate, "YYYY:MM:DD HH:mm:ss");
-
     for (const [_, format] of matches) {
-      to = to.replace(`<${this.id}:${format}>`, date.format(format));
+      to = to.replace(`<${this.id}>`, exifNumber);
     }
 
     return to;

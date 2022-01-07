@@ -1,9 +1,0 @@
-{
-  "version": 1,
-  "rules": [
-    {
-      "destination": "$1",
-      "property": "exif.CreateDate"
-    }
-  ]
-}

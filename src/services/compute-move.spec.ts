@@ -6,7 +6,7 @@ import { fixturesImages } from "../fixtures.spec";
 import { containerRulesModule } from "../rules/container-rule";
 import { TYPES } from "../types";
 import { ComputeMoveService } from "./compute-move";
-import { ExifParser } from "./exif-parser";
+import { ExifParserService } from "./exif-parser.service";
 import { RulesServices } from "./rules.service";
 
 use(chaiAsPromise);
@@ -19,9 +19,9 @@ describe(ComputeMoveService.name, () => {
     container.bind(TYPES.ComputeMoveService).to(ComputeMoveService);
     container.bind(TYPES.RulesServices).to(RulesServices);
     container.load(containerRulesModule);
-    container.bind(TYPES.ExifParser).toConstantValue({
+    container.bind(TYPES.ExifParserService).toConstantValue({
       getExifData: async () => ({ exif: { CreateDate: "2018:08:05 12:24:42" } }),
-    } as unknown as ExifParser);
+    } as unknown as ExifParserService);
     computeMoveService = container.get(TYPES.ComputeMoveService);
   });
 
