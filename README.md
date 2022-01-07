@@ -43,4 +43,15 @@ Examples:
 + 2021/02/03/test.jpg
 ```
 
+### exif.ExposureTime
+
+Use EXIF exposure time number value.
+
+Examples:
+
+```diff
+- <exif.ExposureTime>
++ 0.0001/test.jpg
+```
+
 <!-- END -->
