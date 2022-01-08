@@ -17,32 +17,20 @@ export class DateRules extends AbstractRules {
     "exif.DateTimeOriginal": {
       id: "exif.DateTimeOriginal",
       description: "Use EXIF date time and format date according to given format",
-      examples: [
-        {
-          pattern: `<DateTimeOriginal:YYYY-MM-DD>`,
-          result: "2021-02-03/test.jpg",
-        },
-        {
-          pattern: `<DateTimeOriginal:YYYY>/<DateTimeOriginal:MM>`,
-          result: "2021/02/test.jpg",
-        },
-      ],
+      example: {
+        pattern: `<DateTimeOriginal:YYYY-MM-DD>`,
+        result: "2021-02-03/test.jpg",
+      },
       regex: /<exif\.DateTimeOriginal:(.*?)>/g,
       getProperty: (exifData: any) => exifData.exif.DateTimeOriginal,
     },
     "exif.CreateDate": {
       id: "exif.CreateDate",
       description: "Use EXIF created date and format date according to given format",
-      examples: [
-        {
-          pattern: `<CreateDate:YYYY-MM-DD>`,
-          result: "2021-02-03/test.jpg",
-        },
-        {
-          pattern: `<CreateDate:YYYY>/<CreateDate:MM>`,
-          result: "2021/02/test.jpg",
-        },
-      ],
+      example: {
+        pattern: `<CreateDate:YYYY-MM-DD>`,
+        result: "2021-02-03/test.jpg",
+      },
       regex: /<exif\.CreateDate:(.*?)>/g,
       getProperty: (exifData: any) => exifData.exif.CreateDate,
     },

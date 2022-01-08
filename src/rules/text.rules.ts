@@ -26,36 +26,32 @@ export class TextRules extends AbstractRules {
     "image.ImageWidth": {
       id: "image.ImageWidth",
       description: "Use image width in pixels.",
-      examples: [
-        {
-          pattern: `<image.ImageWidth>`,
-          result: "1080/test.jpg",
-        },
-      ],
+      example: {
+        pattern: `<image.ImageWidth>`,
+        result: "1080/test.jpg",
+      },
+
       regex: /<image\.ImageWidth>/g,
       getProperty: (exifData: any) => exifData.image.ImageWidth,
     },
     "image.ImageHeight": {
       id: "image.ImageHeight",
       description: "Use height width in pixels.",
-      examples: [
-        {
-          pattern: `<image.ImageHeight>`,
-          result: "640/test.jpg",
-        },
-      ],
+      example: {
+        pattern: `<image.ImageHeight>`,
+        result: "640/test.jpg",
+      },
+
       regex: /<image\.ImageHeight>/g,
       getProperty: (exifData: any) => exifData.image.ImageHeight,
     },
     "exif.ExposureTime": {
       id: "exif.ExposureTime",
       description: "Use EXIF exposure time number value.",
-      examples: [
-        {
-          pattern: `<exif.ExposureTime>`,
-          result: "0.0001/test.jpg",
-        },
-      ],
+      example: {
+        pattern: `<exif.ExposureTime>`,
+        result: "0.0001/test.jpg",
+      },
       regex: /<exif\.ExposureTime>/g,
       getProperty: (exifData: any) => exifData.exif.ExposureTime,
     },
