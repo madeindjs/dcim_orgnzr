@@ -399,21 +399,39 @@ You can also clone this repository and build it yourself.
 ```
 
 
-### exif.DateTimeOriginal
+### image.ModifyDate
 
-Use EXIF date time and format date according to given format
+Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
 ```diff  
-- <DateTimeOriginal:YYYY-MM-DD>  
-+ 2021-02-03/test.jpg  
+- <image.ModifyDate:YYYY>/<image.ModifyDate:MM>  
++ 2021/02/test.jpg  
 ```
 
 
 ### exif.CreateDate
 
-Use EXIF created date and format date according to given format
+Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
 ```diff  
-- <CreateDate:YYYY-MM-DD>  
-+ 2021-02-03/test.jpg  
+- <exif.CreateDate:YYYY>/<exif.CreateDate:MM>  
++ 2021/02/test.jpg  
+```
+
+
+### exif.DateTimeOriginal
+
+Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
+```diff  
+- <exif.DateTimeOriginal:YYYY>/<exif.DateTimeOriginal:MM>  
++ 2021/02/test.jpg  
+```
+
+
+### gps.GPSDateStamp
+
+Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
+```diff  
+- <gps.GPSDateStamp:YYYY>/<gps.GPSDateStamp:MM>  
++ 2021/02/test.jpg  
 ```
   
 

@@ -7,34 +7,43 @@ import { AbstractRules, Rule, RuleDescription } from "./abstract.rule";
 
 dayjs.extend(customParseFormat);
 
+type PartialDescription = Pick<RuleDescription, "id" | "description">;
+
+const partialDescriptions: PartialDescription[] = [
+  { id: "image.ModifyDate" },
+  { id: "exif.CreateDate" },
+  { id: "exif.DateTimeOriginal" },
+  { id: "gps.GPSDateStamp" },
+];
+
+function expandPartialDescription(partial: PartialDescription): RuleDescription {
+  const [scope, field] = partial.id.split(".");
+  return {
+    ...partial,
+    description:
+      "Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)",
+    example: {
+      pattern: `<${partial.id}:YYYY>/<${partial.id}:MM>`,
+      result: `2021/02/test.jpg`,
+    },
+    regex: new RegExp(`<${scope}\\.${field}:(.*?)>`, "g"),
+    getProperty: (exifData: any) => exifData[scope][field],
+  };
+}
+
 @injectable()
 export class DateRules extends AbstractRules {
   constructor(@inject(TYPES.ExifParserService) protected readonly exifParser: ExifParserService) {
     super();
   }
-
-  public readonly rulesDescriptions: Record<string, RuleDescription> = {
-    "exif.DateTimeOriginal": {
-      id: "exif.DateTimeOriginal",
-      description: "Use EXIF date time and format date according to given format",
-      example: {
-        pattern: `<DateTimeOriginal:YYYY-MM-DD>`,
-        result: "2021-02-03/test.jpg",
-      },
-      regex: /<exif\.DateTimeOriginal:(.*?)>/g,
-      getProperty: (exifData: any) => exifData.exif.DateTimeOriginal,
+  public readonly rulesDescriptions: Record<string, RuleDescription> = partialDescriptions.reduce(
+    (acc, description) => {
+      // @ts-ignore
+      acc[description.id] = expandPartialDescription(description);
+      return acc;
     },
-    "exif.CreateDate": {
-      id: "exif.CreateDate",
-      description: "Use EXIF created date and format date according to given format",
-      example: {
-        pattern: `<CreateDate:YYYY-MM-DD>`,
-        result: "2021-02-03/test.jpg",
-      },
-      regex: /<exif\.CreateDate:(.*?)>/g,
-      getProperty: (exifData: any) => exifData.exif.CreateDate,
-    },
-  };
+    {}
+  );
 
   protected transformRule(id: string): Rule {
     const description = this.rulesDescriptions[id];

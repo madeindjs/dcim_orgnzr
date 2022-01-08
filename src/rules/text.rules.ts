@@ -4,18 +4,6 @@ import { ExifParserService } from "../services/exif-parser.service";
 import { TYPES } from "../types";
 import { AbstractRules, Rule, RuleDescription } from "./abstract.rule";
 
-const fields = [
-  "image.ImageWidth",
-  "image.ImageHeight",
-  "image.Make",
-  "image.Model",
-  "image.Orientation",
-  "image.XResolution",
-  "image.YResolution",
-  "image.ResolutionUnit",
-  "image.Software",
-];
-
 type PartialDescription = Pick<RuleDescription, "id" | "description"> & { resultExample: string };
 
 const partialDescriptions: PartialDescription[] = [
