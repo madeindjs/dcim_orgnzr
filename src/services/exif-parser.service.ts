@@ -5,7 +5,7 @@ import { injectable } from "inversify";
 export class ExifParserService {
   private readonly cache = new Map<string, object>();
 
-  getExifData(path: string, force = false) {
+  async getExifData(path: string, force = false) {
     if (!force) {
       const cache = this.cache.get(path);
 

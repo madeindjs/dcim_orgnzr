@@ -9,17 +9,19 @@ export interface Args {
   path?: string;
   dryRun?: boolean;
   pattern: string;
+  skipBackupScript?: boolean;
   help?: boolean;
 }
 
 export const argumentConfig: ArgumentConfig<Args> = {
   path: { optional: true, defaultValue: process.cwd(), type: String, description: "Path where images are located" },
   dryRun: { type: Boolean, optional: true, description: "Not apply modifications" },
+  skipBackupScript: { type: Boolean, optional: true, description: "Avoid to generate the backup script" },
   pattern: { type: String, alias: "p", description: "Pattern" },
   help: { type: Boolean, optional: true, alias: "h", description: "Prints this usage guide" },
 };
 
-function convertExampleAsMArkdownDiff(example: RuleExample): string {
+function convertExampleAsMarkdownDiff(example: RuleExample): string {
   return `\`\`\`diff\n- ${example.pattern}\n+ ${example.result}\n\`\`\``;
 }
 
@@ -30,7 +32,7 @@ const patternsSections: Content[] = container
   .map((description) => ({
     headerLevel: 3,
     header: description.id,
-    content: [description.description ?? "", convertExampleAsMArkdownDiff(description.example)],
+    content: [description.description ?? "", convertExampleAsMarkdownDiff(description.example)],
   }));
 
 export const parseOptions: ParseOptions<Args> = {

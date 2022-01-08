@@ -2,6 +2,7 @@ import dayjs = require("dayjs");
 import { inject, injectable } from "inversify";
 import { ExifParserService } from "../services/exif-parser.service";
 import { TYPES } from "../types";
+import { getObjectValueByPath } from "../utils/object.utils";
 import { AbstractRules, Rule, RuleDescription } from "./abstract.rule";
 
 type PartialDescription = Pick<RuleDescription, "id" | "description"> & { resultExample: string };
@@ -187,7 +188,7 @@ function expandPartialDescription(partial: PartialDescription): RuleDescription 
       result: `${partial.resultExample}/test.jpg`,
     },
     regex: new RegExp(`<${scope}\\.${field}`, "g"),
-    getProperty: (exifData: any) => exifData[scope][field],
+    getProperty: (exifData: any) => getObjectValueByPath(exifData, partial.id),
   };
 }
 
@@ -220,7 +221,7 @@ export class TextRules extends AbstractRules {
         return undefined;
       }
 
-      const exifData: any = await this.exifParser.getExifData(from);
+      const exifData: any = await this.exifParser.getExifData(from).catch(() => ({}));
 
       const exifNumber = description.getProperty(exifData);
 
