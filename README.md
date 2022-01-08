@@ -34,8 +34,7 @@ You can also clone this repository and build it yourself.
 
 Use image width in pixels.
 
-Example 1:  
-  
+Examples
 ```diff  
 - <image.ImageWidth>  
 + 1080/test.jpg  
@@ -46,8 +45,7 @@ Example 1:
 
 Use height width in pixels.
 
-Example 1:  
-  
+Examples
 ```diff  
 - <image.ImageHeight>  
 + 640/test.jpg  
@@ -58,8 +56,7 @@ Example 1:
 
 Use EXIF exposure time number value.
 
-Example 1:  
-  
+Examples
 ```diff  
 - <exif.ExposureTime>  
 + 0.0001/test.jpg  
@@ -70,14 +67,11 @@ Example 1:
 
 Use EXIF date time and format date according to given format
 
-Example 1:  
-  
+Examples
 ```diff  
 - <DateTimeOriginal:YYYY-MM-DD>  
 + 2021-02-03/test.jpg  
 ```
-Example 2:  
-  
 ```diff  
 - <DateTimeOriginal:YYYY>/<DateTimeOriginal:MM>  
 + 2021/02/test.jpg  
@@ -88,14 +82,11 @@ Example 2:
 
 Use EXIF created date and format date according to given format
 
-Example 1:  
-  
+Examples
 ```diff  
 - <CreateDate:YYYY-MM-DD>  
 + 2021-02-03/test.jpg  
 ```
-Example 2:  
-  
 ```diff  
 - <CreateDate:YYYY>/<CreateDate:MM>  
 + 2021/02/test.jpg  
