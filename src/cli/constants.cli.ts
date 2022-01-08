@@ -29,7 +29,7 @@ const patternsSections: Content[] = container
   .map((description) => ({
     headerLevel: 3,
     header: description.id,
-    content: [description.description, "", "Example\n", convertExampleAsMArkdownDiff(description.example)],
+    content: [description.description ?? "", convertExampleAsMArkdownDiff(description.example)],
   }));
 
 export const parseOptions: ParseOptions<Args> = {

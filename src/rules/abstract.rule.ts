@@ -25,7 +25,7 @@ export type Rule = (from: string, to: string) => Promise<string | undefined>;
 
 export interface RuleDescription {
   id: string;
-  description: string;
+  description?: string;
   example: RuleExample;
   regex: RegExp;
   getProperty: (exifData: any) => string;
