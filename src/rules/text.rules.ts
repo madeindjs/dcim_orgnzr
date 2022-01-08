@@ -16,46 +16,50 @@ const fields = [
   "image.Software",
 ];
 
+type PartialDescription = Pick<RuleDescription, "id" | "description">;
+
+const partialDescriptions: PartialDescription[] = [
+  {
+    id: "image.ImageWidth",
+    description: "Use image width in pixels.",
+  },
+  {
+    id: "image.ImageHeight",
+    description: "Use image height in pixels.",
+  },
+  {
+    id: "exif.ExposureTime",
+    description: "Use EXIF exposure time number value.",
+  },
+];
+
+function expandPartialDescription(partial: PartialDescription): RuleDescription {
+  const [scope, field] = partial.id.split(".");
+  return {
+    ...partial,
+    example: {
+      pattern: `<${partial.id}>`,
+      result: `1234/test.jpg`,
+    },
+    regex: new RegExp(`<${scope}\\.${field}`, "g"),
+    getProperty: (exifData: any) => exifData[scope][field],
+  };
+}
+
 @injectable()
 export class TextRules extends AbstractRules {
   constructor(@inject(TYPES.ExifParserService) protected readonly exifParser: ExifParserService) {
     super();
   }
 
-  public readonly rulesDescriptions: Record<string, RuleDescription> = {
-    "image.ImageWidth": {
-      id: "image.ImageWidth",
-      description: "Use image width in pixels.",
-      example: {
-        pattern: `<image.ImageWidth>`,
-        result: "1080/test.jpg",
-      },
-
-      regex: /<image\.ImageWidth>/g,
-      getProperty: (exifData: any) => exifData.image.ImageWidth,
+  public readonly rulesDescriptions: Record<string, RuleDescription> = partialDescriptions.reduce(
+    (acc, description) => {
+      // @ts-ignore
+      acc[description.id] = expandPartialDescription(description);
+      return acc;
     },
-    "image.ImageHeight": {
-      id: "image.ImageHeight",
-      description: "Use height width in pixels.",
-      example: {
-        pattern: `<image.ImageHeight>`,
-        result: "640/test.jpg",
-      },
-
-      regex: /<image\.ImageHeight>/g,
-      getProperty: (exifData: any) => exifData.image.ImageHeight,
-    },
-    "exif.ExposureTime": {
-      id: "exif.ExposureTime",
-      description: "Use EXIF exposure time number value.",
-      example: {
-        pattern: `<exif.ExposureTime>`,
-        result: "0.0001/test.jpg",
-      },
-      regex: /<exif\.ExposureTime>/g,
-      getProperty: (exifData: any) => exifData.exif.ExposureTime,
-    },
-  };
+    {}
+  );
 
   protected transformRule(id: string): Rule {
     const description = this.rulesDescriptions[id];
