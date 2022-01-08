@@ -5,16 +5,14 @@
   "main": "./src/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index",
-    "start:dev": "ts-node src/index",
-    "dev": "ts-node src/index.ts $PWD/sample",
+    "dev": "ts-node src/cli/run.cli.ts",
     "doc": "write-markdown -m README.md -j dist/cli/constants.cli.js",
     "test": "mocha -r ts-node/register --recursive \"src/**/*.spec.ts\""
   },
   "bin": {
     "dcim-orgnzr": "dist/cli/run.cli.js"
   },
-  "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
+  "author": "Alexandre Rousseau <alexandre@rsseau.fr>",
   "license": "ISC",
   "dependencies": {
     "dayjs": "^1.10.7",
