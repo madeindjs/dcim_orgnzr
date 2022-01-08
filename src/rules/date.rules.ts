@@ -44,7 +44,7 @@ export class DateRules extends AbstractRules {
         },
       ],
       regex: /<exif\.CreateDate:(.*?)>/g,
-      getProperty: (exifData: any) => exifData.exif.DateTimeOriginal,
+      getProperty: (exifData: any) => exifData.exif.CreateDate,
     },
   };
 
@@ -59,6 +59,7 @@ export class DateRules extends AbstractRules {
       const matches = Array.from(to.matchAll(description.regex) ?? []);
 
       if (matches.length === 0) {
+        // console.warn(`not match for ${id}`);
         return undefined;
       }
 
@@ -67,6 +68,7 @@ export class DateRules extends AbstractRules {
       const exifDate = description.getProperty(exifData);
 
       if (exifDate === undefined) {
+        console.warn(`exif Date not found ${id}`);
         return;
       }
 

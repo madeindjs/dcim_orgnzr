@@ -30,6 +30,30 @@ You can also clone this repository and build it yourself.
 
 
 
+### image.ImageWidth
+
+Use image width in pixels.
+
+Example 1:  
+  
+```diff  
+- <image.ImageWidth>  
++ 1080/test.jpg  
+```
+
+
+### image.ImageHeight
+
+Use height width in pixels.
+
+Example 1:  
+  
+```diff  
+- <image.ImageHeight>  
++ 640/test.jpg  
+```
+
+
 ### exif.ExposureTime
 
 Use EXIF exposure time number value.

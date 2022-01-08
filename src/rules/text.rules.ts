@@ -4,6 +4,18 @@ import { ExifParserService } from "../services/exif-parser.service";
 import { TYPES } from "../types";
 import { AbstractRules, Rule, RuleDescription } from "./abstract.rule";
 
+const fields = [
+  "image.ImageWidth",
+  "image.ImageHeight",
+  "image.Make",
+  "image.Model",
+  "image.Orientation",
+  "image.XResolution",
+  "image.YResolution",
+  "image.ResolutionUnit",
+  "image.Software",
+];
+
 @injectable()
 export class TextRules extends AbstractRules {
   constructor(@inject(TYPES.ExifParserService) protected readonly exifParser: ExifParserService) {
@@ -11,6 +23,30 @@ export class TextRules extends AbstractRules {
   }
 
   public readonly rulesDescriptions: Record<string, RuleDescription> = {
+    "image.ImageWidth": {
+      id: "image.ImageWidth",
+      description: "Use image width in pixels.",
+      examples: [
+        {
+          pattern: `<image.ImageWidth>`,
+          result: "1080/test.jpg",
+        },
+      ],
+      regex: /<image\.ImageWidth>/g,
+      getProperty: (exifData: any) => exifData.image.ImageWidth,
+    },
+    "image.ImageHeight": {
+      id: "image.ImageHeight",
+      description: "Use height width in pixels.",
+      examples: [
+        {
+          pattern: `<image.ImageHeight>`,
+          result: "640/test.jpg",
+        },
+      ],
+      regex: /<image\.ImageHeight>/g,
+      getProperty: (exifData: any) => exifData.image.ImageHeight,
+    },
     "exif.ExposureTime": {
       id: "exif.ExposureTime",
       description: "Use EXIF exposure time number value.",

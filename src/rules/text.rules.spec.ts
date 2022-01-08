@@ -9,23 +9,39 @@ import { TextRules } from "./text.rules";
 describe(TextRules.name, () => {
   let service: TextRules = container.get(TYPES.TextRules);
 
-  for (const id of Object.keys(service.rulesDescriptions)) {
-    describe(id, () => {
-      let rule: Rule;
+  describe("image.ImageWidth", () => {
+    let rule: Rule;
 
-      beforeEach(() => {
-        rule = service.getRule(id);
-      });
-
-      it("should replace text", async () => {
-        const result = await rule(fixturesImages.me, path.join(fixturesImages.me, `<${id}>`));
-        expect(result).eq(path.join(fixturesImages.me, `0.0029239766081871343`));
-      });
-
-      it("should do nothing", async () => {
-        const result = await rule(fixturesImages.me, path.join(fixturesImages.me, `<toto>`));
-        expect(result).be.undefined;
-      });
+    beforeEach(() => {
+      rule = service.getRule("image.ImageWidth");
     });
-  }
+
+    it("should replace text", async () => {
+      const result = await rule(fixturesImages.me, path.join(fixturesImages.me, `<image.ImageWidth>`));
+      expect(result).eq(path.join(fixturesImages.me, `4128`));
+    });
+
+    it("should do nothing", async () => {
+      const result = await rule(fixturesImages.me, path.join(fixturesImages.me, `<toto>`));
+      expect(result).be.undefined;
+    });
+  });
+
+  describe("exit.ExposureTime", () => {
+    let rule: Rule;
+
+    beforeEach(() => {
+      rule = service.getRule("exif.ExposureTime");
+    });
+
+    it("should replace text", async () => {
+      const result = await rule(fixturesImages.me, path.join(fixturesImages.me, `<exif.ExposureTime>`));
+      expect(result).eq(path.join(fixturesImages.me, `0.0029239766081871343`));
+    });
+
+    it("should do nothing", async () => {
+      const result = await rule(fixturesImages.me, path.join(fixturesImages.me, `<toto>`));
+      expect(result).be.undefined;
+    });
+  });
 });
