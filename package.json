@@ -1,6 +1,6 @@
 {
   "name": "dcim-orgnzr",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Organize images according to their EXIF data",
   "repository": {
     "type": "git",

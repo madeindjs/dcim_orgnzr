@@ -42,14 +42,14 @@ export class ComputeMoveService {
       const result = await rule(to, pattern);
 
       if (result) {
-        to = result;
+        to = join(directoryPath, result, basename(from));
       }
     }
 
     if (to !== from) {
       return {
         from,
-        to: join(directoryPath, to, basename(from)),
+        to,
       };
     }
   }
