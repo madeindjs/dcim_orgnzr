@@ -2,3 +2,5 @@ sample
 src
 todo.txt
 .vscode
+*.tgz
+.github

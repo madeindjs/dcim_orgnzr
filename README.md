@@ -6,7 +6,7 @@ Organize your picture library according to EXIF data.
 
 ## Usage
 
-`dcim-orgnzr --path='./dcim' --pattern=''`
+`dcim-orgnzr --path='./dcim' --pattern='<exif.CreateDate:YYYY>/<exif.CreateDate:MM>'`
 
 
 # Setup
@@ -21,6 +21,7 @@ You can also clone this repository and build it yourself.
 |-|-|-|-|
 | **path** | | string | Path where images are located |
 | **dryRun** | | boolean | Not apply modifications |
+| **skipBackupScript** | | boolean | Avoid to generate the backup script |
 | **pattern** | **p** | string | Pattern |
 | **help** | **h** | boolean | Prints this usage guide |
 
@@ -30,183 +31,84 @@ You can also clone this repository and build it yourself.
 
 
 
-### image.ImageWidth
+### exif.ApertureValue
 
 
 ```diff  
-- <image.ImageWidth>  
-+ 4128/test.jpg  
+- <exif.ApertureValue>  
++ 1.85/test.jpg  
 ```
 
 
-### image.ImageHeight
+### exif.BrightnessValue
 
 
 ```diff  
-- <image.ImageHeight>  
-+ 3096/test.jpg  
+- <exif.BrightnessValue>  
++ 6.9/test.jpg  
 ```
 
 
-### image.Make
+### exif.ColorSpace
 
 
 ```diff  
-- <image.Make>  
-+ samsung/test.jpg  
-```
-
-
-### image.Model
-
-
-```diff  
-- <image.Model>  
-+ cSM-J510FN/test.jpg  
-```
-
-
-### image.Orientation
-
-
-```diff  
-- <image.Orientation>  
-+ 6/test.jpg  
-```
-
-
-### image.XResolution
-
-
-```diff  
-- <image.XResolution>  
-+ 72/test.jpg  
-```
-
-
-### image.YResolution
-
-
-```diff  
-- <image.YResolution>  
-+ 72/test.jpg  
-```
-
-
-### image.ResolutionUnit
-
-
-```diff  
-- <image.ResolutionUnit>  
-+ 2/test.jpg  
-```
-
-
-### image.Software
-
-
-```diff  
-- <image.Software>  
-+ J510FNXXU2BRE4/test.jpg  
-```
-
-
-### image.YCbCrPositioning
-
-
-```diff  
-- <image.YCbCrPositioning>  
+- <exif.ColorSpace>  
 + 1/test.jpg  
 ```
 
 
-### image.ExifOffset
+### exif.CreateDate
 
-
+Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
 ```diff  
-- <image.ExifOffset>  
-+ 240/test.jpg  
+- <exif.CreateDate:YYYY>/<exif.CreateDate:MM>  
++ 2021/02/test.jpg  
 ```
 
 
-### thumbnail.ImageWidth
+### exif.DateTimeOriginal
 
-
+Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
 ```diff  
-- <thumbnail.ImageWidth>  
-+ 512/test.jpg  
+- <exif.DateTimeOriginal:YYYY>/<exif.DateTimeOriginal:MM>  
++ 2021/02/test.jpg  
 ```
 
 
-### thumbnail.ImageHeight
+### exif.ExifImageHeight
 
 
 ```diff  
-- <thumbnail.ImageHeight>  
-+ 384/test.jpg  
+- <exif.ExifImageHeight>  
++ 3096/test.jpg  
 ```
 
 
-### thumbnail.Compression
+### exif.ExifImageWidth
 
 
 ```diff  
-- <thumbnail.Compression>  
-+ 6/test.jpg  
+- <exif.ExifImageWidth>  
++ 4128/test.jpg  
 ```
 
 
-### thumbnail.Orientation
+### exif.ExposureCompensation
 
 
 ```diff  
-- <thumbnail.Orientation>  
-+ 6/test.jpg  
+- <exif.ExposureCompensation>  
++ 0/test.jpg  
 ```
 
 
-### thumbnail.XResolution
+### exif.ExposureProgram
 
 
 ```diff  
-- <thumbnail.XResolution>  
-+ 72/test.jpg  
-```
-
-
-### thumbnail.YResolution
-
-
-```diff  
-- <thumbnail.YResolution>  
-+ 72/test.jpg  
-```
-
-
-### thumbnail.ResolutionUnit
-
-
-```diff  
-- <thumbnail.ResolutionUnit>  
+- <exif.ExposureProgram>  
 + 2/test.jpg  
-```
-
-
-### thumbnail.ThumbnailOffset
-
-
-```diff  
-- <thumbnail.ThumbnailOffset>  
-+ 3424/test.jpg  
-```
-
-
-### thumbnail.ThumbnailLength
-
-
-```diff  
-- <thumbnail.ThumbnailLength>  
-+ 32987/test.jpg  
 ```
 
 
@@ -228,12 +130,30 @@ You can also clone this repository and build it yourself.
 ```
 
 
-### exif.ExposureProgram
+### exif.Flash
 
 
 ```diff  
-- <exif.ExposureProgram>  
-+ 2/test.jpg  
+- <exif.Flash>  
++ 0/test.jpg  
+```
+
+
+### exif.FocalLength
+
+
+```diff  
+- <exif.FocalLength>  
++ 3.7/test.jpg  
+```
+
+
+### exif.FocalLengthIn35mmFormat
+
+
+```diff  
+- <exif.FocalLengthIn35mmFormat>  
++ 28/test.jpg  
 ```
 
 
@@ -246,38 +166,20 @@ You can also clone this repository and build it yourself.
 ```
 
 
-### exif.ShutterSpeedValue
+### exif.InteropOffset
 
 
 ```diff  
-- <exif.ShutterSpeedValue>  
-+ 8.41/test.jpg  
+- <exif.InteropOffset>  
++ 3186/test.jpg  
 ```
 
 
-### exif.ApertureValue
+### exif.LightSource
 
 
 ```diff  
-- <exif.ApertureValue>  
-+ 1.85/test.jpg  
-```
-
-
-### exif.BrightnessValue
-
-
-```diff  
-- <exif.BrightnessValue>  
-+ 6.9/test.jpg  
-```
-
-
-### exif.ExposureCompensation
-
-
-```diff  
-- <exif.ExposureCompensation>  
+- <exif.LightSource>  
 + 0/test.jpg  
 ```
 
@@ -300,66 +202,12 @@ You can also clone this repository and build it yourself.
 ```
 
 
-### exif.LightSource
+### exif.SceneCaptureType
 
 
 ```diff  
-- <exif.LightSource>  
+- <exif.SceneCaptureType>  
 + 0/test.jpg  
-```
-
-
-### exif.Flash
-
-
-```diff  
-- <exif.Flash>  
-+ 0/test.jpg  
-```
-
-
-### exif.FocalLength
-
-
-```diff  
-- <exif.FocalLength>  
-+ 3.7/test.jpg  
-```
-
-
-### exif.ColorSpace
-
-
-```diff  
-- <exif.ColorSpace>  
-+ 1/test.jpg  
-```
-
-
-### exif.ExifImageWidth
-
-
-```diff  
-- <exif.ExifImageWidth>  
-+ 4128/test.jpg  
-```
-
-
-### exif.ExifImageHeight
-
-
-```diff  
-- <exif.ExifImageHeight>  
-+ 3096/test.jpg  
-```
-
-
-### exif.InteropOffset
-
-
-```diff  
-- <exif.InteropOffset>  
-+ 3186/test.jpg  
 ```
 
 
@@ -372,6 +220,15 @@ You can also clone this repository and build it yourself.
 ```
 
 
+### exif.ShutterSpeedValue
+
+
+```diff  
+- <exif.ShutterSpeedValue>  
++ 8.41/test.jpg  
+```
+
+
 ### exif.WhiteBalance
 
 
@@ -381,21 +238,57 @@ You can also clone this repository and build it yourself.
 ```
 
 
-### exif.FocalLengthIn35mmFormat
+### gps.GPSDateStamp
 
-
+Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
 ```diff  
-- <exif.FocalLengthIn35mmFormat>  
-+ 28/test.jpg  
+- <gps.GPSDateStamp:YYYY>/<gps.GPSDateStamp:MM>  
++ 2021/02/test.jpg  
 ```
 
 
-### exif.SceneCaptureType
+### image.ExifOffset
 
 
 ```diff  
-- <exif.SceneCaptureType>  
-+ 0/test.jpg  
+- <image.ExifOffset>  
++ 240/test.jpg  
+```
+
+
+### image.ImageHeight
+
+
+```diff  
+- <image.ImageHeight>  
++ 3096/test.jpg  
+```
+
+
+### image.ImageWidth
+
+
+```diff  
+- <image.ImageWidth>  
++ 4128/test.jpg  
+```
+
+
+### image.Make
+
+
+```diff  
+- <image.Make>  
++ samsung/test.jpg  
+```
+
+
+### image.Model
+
+
+```diff  
+- <image.Model>  
++ cSM-J510FN/test.jpg  
 ```
 
 
@@ -408,30 +301,138 @@ Parse the date and format according to format given (see https://day.js.org/docs
 ```
 
 
-### exif.CreateDate
+### image.Orientation
 
-Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
+
 ```diff  
-- <exif.CreateDate:YYYY>/<exif.CreateDate:MM>  
-+ 2021/02/test.jpg  
+- <image.Orientation>  
++ 6/test.jpg  
 ```
 
 
-### exif.DateTimeOriginal
+### image.ResolutionUnit
 
-Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
+
 ```diff  
-- <exif.DateTimeOriginal:YYYY>/<exif.DateTimeOriginal:MM>  
-+ 2021/02/test.jpg  
+- <image.ResolutionUnit>  
++ 2/test.jpg  
 ```
 
 
-### gps.GPSDateStamp
+### image.Software
 
-Parse the date and format according to format given (see https://day.js.org/docs/en/display/format for formatting)
+
 ```diff  
-- <gps.GPSDateStamp:YYYY>/<gps.GPSDateStamp:MM>  
-+ 2021/02/test.jpg  
+- <image.Software>  
++ J510FNXXU2BRE4/test.jpg  
+```
+
+
+### image.XResolution
+
+
+```diff  
+- <image.XResolution>  
++ 72/test.jpg  
+```
+
+
+### image.YCbCrPositioning
+
+
+```diff  
+- <image.YCbCrPositioning>  
++ 1/test.jpg  
+```
+
+
+### image.YResolution
+
+
+```diff  
+- <image.YResolution>  
++ 72/test.jpg  
+```
+
+
+### thumbnail.Compression
+
+
+```diff  
+- <thumbnail.Compression>  
++ 6/test.jpg  
+```
+
+
+### thumbnail.ImageHeight
+
+
+```diff  
+- <thumbnail.ImageHeight>  
++ 384/test.jpg  
+```
+
+
+### thumbnail.ImageWidth
+
+
+```diff  
+- <thumbnail.ImageWidth>  
++ 512/test.jpg  
+```
+
+
+### thumbnail.Orientation
+
+
+```diff  
+- <thumbnail.Orientation>  
++ 6/test.jpg  
+```
+
+
+### thumbnail.ResolutionUnit
+
+
+```diff  
+- <thumbnail.ResolutionUnit>  
++ 2/test.jpg  
+```
+
+
+### thumbnail.ThumbnailLength
+
+
+```diff  
+- <thumbnail.ThumbnailLength>  
++ 32987/test.jpg  
+```
+
+
+### thumbnail.ThumbnailOffset
+
+
+```diff  
+- <thumbnail.ThumbnailOffset>  
++ 3424/test.jpg  
+```
+
+
+### thumbnail.XResolution
+
+
+```diff  
+- <thumbnail.XResolution>  
++ 72/test.jpg  
+```
+
+
+### thumbnail.YResolution
+
+
+```diff  
+- <thumbnail.YResolution>  
++ 72/test.jpg  
 ```
   
 

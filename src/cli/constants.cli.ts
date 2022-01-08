@@ -39,7 +39,11 @@ export const parseOptions: ParseOptions<Args> = {
   helpArg: "help",
   headerContentSections: [
     { header: "dcim-orgnzr", content: "Organize your picture library according to EXIF data.", headerLevel: 1 },
-    { header: "Usage", content: "`dcim-orgnzr --path='./dcim' --pattern=''`", headerLevel: 2 },
+    {
+      header: "Usage",
+      content: "`dcim-orgnzr --path='./dcim' --pattern='<exif.CreateDate:YYYY>/<exif.CreateDate:MM>'`",
+      headerLevel: 2,
+    },
     {
       header: "Setup",
       includeIn: "markdown",

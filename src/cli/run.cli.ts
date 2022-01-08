@@ -7,7 +7,6 @@ import { container } from "../container";
 import { ComputeMoveService, Move } from "../services/compute-move";
 import { TYPES } from "../types";
 import { argumentConfig, parseOptions } from "./constants.cli";
-import path = require("path");
 
 async function handleMove(move: Move, backupFile: string) {
   await mkdir(dirname(move.to), { recursive: true });
