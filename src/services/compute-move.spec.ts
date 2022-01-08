@@ -27,7 +27,7 @@ describe(ComputeMoveService.name, () => {
 
   describe("getMoveForFile", () => {
     it("should move with all date of exif", async () => {
-      const result = await computeMoveService.getMoveForFile(fixturesImages.me, "<exif.CreateDate:MM>");
+      const result = await computeMoveService.getMoveForFile(fixturesImages.me, "<exif.CreateDate:MM>", "");
 
       expect(result).deep.eq({
         from: fixturesImages.me,

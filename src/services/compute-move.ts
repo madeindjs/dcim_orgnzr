@@ -1,5 +1,5 @@
-import { rename } from "fs/promises";
 import { inject, injectable } from "inversify";
+import { basename, join } from "path";
 import { TYPES } from "../types";
 import { RulesServices } from "./rules.service";
 
@@ -7,7 +7,7 @@ import { RulesServices } from "./rules.service";
 const walk = require("walkdir");
 const path = require("path");
 
-interface Move {
+export interface Move {
   from: string;
   to: string;
 }
@@ -20,26 +20,18 @@ interface Options {
 export class ComputeMoveService {
   constructor(@inject(TYPES.RulesServices) private readonly rulesService: RulesServices) {}
 
-  async *getMovesForDirectory(
-    directoryPath: string,
-    pattern: string,
-    options: Options = {}
-  ): AsyncGenerator<Move, void, Move> {
+  async *getMovesForDirectory(directoryPath: string, pattern: string): AsyncGenerator<Move, void, Move> {
     let result = await walk.async(directoryPath, { return_object: true });
 
     for (const filepath of Object.keys(result)) {
-      const move = await this.getMoveForFile(filepath, pattern);
-
-      if (move !== undefined) {
-        if (!options.dryRun) {
-          await rename(move.from, move.to);
-        }
+      const move = await this.getMoveForFile(filepath, pattern, directoryPath);
+      if (move) {
         yield move;
       }
     }
   }
 
-  async getMoveForFile(from: string, pattern: string): Promise<Move | undefined> {
+  async getMoveForFile(from: string, pattern: string, directoryPath: string): Promise<Move | undefined> {
     if (![".jpg"].includes(path.extname(from))) {
       return;
     }
@@ -57,7 +49,7 @@ export class ComputeMoveService {
     if (to !== from) {
       return {
         from,
-        to,
+        to: join(directoryPath, to, basename(from)),
       };
     }
   }

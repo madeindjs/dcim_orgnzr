@@ -1,20 +1,27 @@
 #!/usr/bin/env node
-import { rename, writeFile } from "fs/promises";
-import { join } from "path";
+import { mkdir, rename, writeFile } from "fs/promises";
+import { dirname, join } from "path";
 import "reflect-metadata";
 import { parse } from "ts-command-line-args";
 import { container } from "../container";
-import { ComputeMoveService } from "../services/compute-move";
+import { ComputeMoveService, Move } from "../services/compute-move";
 import { TYPES } from "../types";
 import { argumentConfig, parseOptions } from "./constants.cli";
+import path = require("path");
+
+async function handleMove(move: Move, backupFile: string) {
+  await mkdir(dirname(move.to), { recursive: true });
+  await rename(move.from, move.to);
+  await writeFile(backupFile, `mv ${move.to} ${move.from}\n`, { flag: "a+" });
+}
 
 async function main() {
   const args = parse(argumentConfig, parseOptions);
   const generator = await container
     .get<ComputeMoveService>(TYPES.ComputeMoveService)
-    .getMovesForDirectory(args.path as string, args.pattern, { dryRun: args.dryRun });
+    .getMovesForDirectory(args.path as string, args.pattern);
 
-  const backupFile = join(args.path as string, `dcim-orgnzr.revert.${new Date().toISOString()}.sh`);
+  const backupFile = join(args.path as string, `dcim-orgnzr.revert.${new Date().getTime()}.sh`);
 
   const movesPromises: Promise<void>[] = [];
 
@@ -23,7 +30,7 @@ async function main() {
     const moveCmd = `mv ${move.from}  ${move.to}`;
     console.log(moveCmd);
     if (!args.dryRun) {
-      movesPromises.push(rename(move.from, move.to).then(() => writeFile(backupFile, `${moveCmd}\n`, { mode: "a" })));
+      movesPromises.push(handleMove(move, backupFile));
     }
   }
 
