@@ -26,6 +26,7 @@ function convertExampleAsMArkdownDiff(example: RuleExample): string {
 const patternsSections: Content[] = container
   .get<RulesServices>(TYPES.RulesServices)
   .getRulesDescriptions()
+  .sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0))
   .map((description) => ({
     headerLevel: 3,
     header: description.id,
