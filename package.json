@@ -1,8 +1,16 @@
 {
   "name": "dcim-orgnzr",
-  "version": "1.0.0",
-  "description": "Organize images according to their GPS tags",
-  "main": "./src/index.js",
+  "version": "1.0.1",
+  "description": "Organize images according to their EXIF data",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/madeindjs/dcim_orgnzr/"
+  },
+  "keywords": [
+    "cli",
+    "exif",
+    "lifestyle"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "ts-node src/cli/run.cli.ts",
