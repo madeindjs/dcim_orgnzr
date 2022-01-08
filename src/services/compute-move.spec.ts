@@ -1,6 +1,7 @@
 import { expect, use } from "chai";
 import * as chaiAsPromise from "chai-as-promised";
 import { Container } from "inversify";
+import { join } from "path/posix";
 import "reflect-metadata";
 import { fixturesImages } from "../fixtures.spec";
 import { containerRulesModule } from "../rules/container-rule";
@@ -31,7 +32,7 @@ describe(ComputeMoveService.name, () => {
 
       expect(result).deep.eq({
         from: fixturesImages.me,
-        to: "08",
+        to: join("08", "me.jpg"),
       });
     });
   });
