@@ -46,8 +46,8 @@ export class ComputeMoveService {
 
     let to = from;
 
-    for (const rule of this.rulesService.rules) {
-      const result = await rule.run(to, pattern);
+    for (const rule of this.rulesService.getRules()) {
+      const result = await rule(to, pattern);
 
       if (result) {
         to = result;

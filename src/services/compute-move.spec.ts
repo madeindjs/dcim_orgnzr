@@ -16,9 +16,9 @@ describe(ComputeMoveService.name, () => {
 
   beforeEach(() => {
     const container = new Container();
+    container.load(containerRulesModule);
     container.bind(TYPES.ComputeMoveService).to(ComputeMoveService);
     container.bind(TYPES.RulesServices).to(RulesServices);
-    container.load(containerRulesModule);
     container.bind(TYPES.ExifParserService).toConstantValue({
       getExifData: async () => ({ exif: { CreateDate: "2018:08:05 12:24:42" } }),
     } as unknown as ExifParserService);

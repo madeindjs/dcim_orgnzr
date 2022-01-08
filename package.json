@@ -8,11 +8,11 @@
     "start": "node dist/index",
     "start:dev": "ts-node src/index",
     "dev": "ts-node src/index.ts $PWD/sample",
-    "doc": "ts-node src/doc.ts",
+    "doc": "write-markdown -m README.md -j dist/cli/constants.cli.js",
     "test": "mocha -r ts-node/register --recursive \"src/**/*.spec.ts\""
   },
   "bin": {
-    "dcim-orgnzr": "dist/index.js"
+    "dcim-orgnzr": "dist/cli/run.cli.js"
   },
   "author": "Rousseau Alexandre <contact@rousseau-alexandre.fr>",
   "license": "ISC",

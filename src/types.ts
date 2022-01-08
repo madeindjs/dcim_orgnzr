@@ -4,7 +4,6 @@ export const TYPES = {
   ExifParserService: Symbol.for("ExifParserService"),
   RulesServices: Symbol.for("RulesService"),
   // rules
-  ExifCreatedDateRule: Symbol.for("ExifCreatedDateRule"),
-  ExifDateTimeOriginalRule: Symbol.for("ExifDateTimeOriginalRule"),
-  ExifExposureTimeRule: Symbol.for("ExifExposureTimeRule"),
+  TextRules: Symbol.for("TextRules"),
+  DateRules: Symbol.for("DateRules"),
 };
